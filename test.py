@@ -1,15 +1,21 @@
-# -*- coding:utf-8 -*-
+from flask import Flask
+app = Flask(__name__)
+
+@app.route('/')
+def index():
+    return '<h1>Hel3lo1 2Worl32d111!</h1>',400
+
+@app.route('/user/<name>')
+def user(name):
+    return '<h1>Hello, % s!</h1>' % name
+
+def run_before_first_request():
+    pass
+
+def run_teardown_request(args):
+    pass
+
 if __name__ == '__main__':
-    from multiprocessing import Process
-    import os
-
-    def run_proc(name):
-        print 'Run child process %s (%s)...' % (name, os.getpid())
-
-    if __name__=='__main__':
-        print 'Parent process %s.' % os.getpid()
-        p = Process(target=run_proc, args=('test',))
-        print 'Process will start.'
-        p.start()
-        p.join()
-        print 'Process end.'
+    app.before_first_request(run_before_first_request)
+    app.teardown_request(run_teardown_request)
+    app.run(host= '0.0.0.0',debug=True)
