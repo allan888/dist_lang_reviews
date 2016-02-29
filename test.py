@@ -18,4 +18,4 @@ def run_teardown_request(args):
 if __name__ == '__main__':
     app.before_first_request(run_before_first_request)
     app.teardown_request(run_teardown_request)
-    app.run(host= '0.0.0.0',debug=True)
+    app.run(host= '0.0.0.0',port=80, debug=True)
