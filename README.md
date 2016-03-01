@@ -1,2 +1,2 @@
 # dist_lang_reviews
-a distribution algorithms/languages reviews and ratings website
+a distributed algorithms/languages reviews and ratings website
