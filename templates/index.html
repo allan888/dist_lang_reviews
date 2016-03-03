@@ -1,1 +1,372 @@
-<h1>hello1, {{ name }}<h1>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <meta name="author" content="title">
+
+  <title>
+    Distributed Algorithms and Languages
+  </title>
+
+  <!-- Main styles -->
+  <link href="{{ url_for('static', filename = 'css/index.css') }}" rel="stylesheet">
+
+  <!-- Webfonts -->
+  <script type="text/javascript">
+    WebFontConfig = {
+      google: {
+        families: ['PT+Sans:400,700,400italic,700italic', 'PT+Mono&subset=latin,cyrillic']
+      }
+    };
+    (function() {
+      var wf = document.createElement('script');
+      wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+        '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+      wf.type = 'text/javascript';
+      wf.async = 'true';
+      var s = document.getElementsByTagName('script')[0];
+      s.parentNode.insertBefore(wf, s);
+    })();
+  </script>
+
+  <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" href="{{ url_for('static', filename = 'imgs/fav.ico') }}">
+
+</head>
+
+<body class="index">
+
+  <header class="navbar navbar-inverse navbar-fixed-top docs-nav" role="banner">
+    <div class="container">
+      <div class="navbar-header">
+        <button class="navbar-toggle" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="./#" class="navbar-brand" alt="Less">
+          <img src="{{ url_for('static', filename = 'imgs/christmas184.png') }}" width="40px">
+        </a>
+      </div>
+      <nav class="collapse navbar-collapse bs-navbar-collapse" role="navigation">
+        <ul class="nav navbar-nav">
+
+          <li>
+            <a href="features/">Homepage</a>
+
+          </li>
+          <li>
+            <a href="#">submit your implementation</a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+
+
+          <li>
+            <a href="about/">About</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+
+
+  <div class="docs-header" id="content">
+    <div class="container">
+      <h1>Distribution Algorithms and Langugages Review</h1>
+      <p>Introdution Paragraph</p>
+    </div>
+  </div>
+
+
+  <div class="container docs-container">
+    <div class="row">
+      <div class="col-md-3">
+        <div class="sidebar hidden-print" role="complementary">
+          <div id="navigation">
+
+            <ul class="nav sidenav">
+
+
+
+
+              <li><a href="#cpp">C++</a>
+                <ul class="nav">
+                  <li><a href="#cpp-mi-protocol">MI protocol</a></li>
+                  <li><a href="#cpp-paxos">Paxos</a></li>
+                </ul>
+              </li>
+
+
+
+              <li><a href="#java">JAVA</a>
+                <ul class="nav">
+                  <li><a href="#java-mi-protocol">MI protocol</a></li>
+                  <li><a href="#java-paxos">Paxos</a></li>
+                </ul>
+              </li>
+
+
+
+              <li><a href="#go">GO</a>
+                <ul class="nav">
+                  <li><a href="#go-mi-protocol">MI protocol</a></li>
+                  <li><a href="#go-paxos">Paxos</a></li>
+                </ul>
+              </li>
+
+
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-9" role="main">
+
+        <div class="panel docs-content">
+
+
+
+
+
+
+          <!-- ========================= CPP ===============================  -->
+          <div class="docs-section">
+            <div class="page-header">
+              <h1 class="docs-heading">C++
+                <span class="anchor-target" id="cpp"></span>
+                <a href="#cpp" name="cpp" class="anchor glyphicon glyphicon-link"></a>
+              </h1>
+            </div>
+            <blockquote>
+              <p>C++ place holder.</p>
+            </blockquote>
+
+
+            <h2 class="docs-heading">C++ MI protocol
+              <span class="anchor-target" id="cpp-mi-protocol"></span>
+              <a href="#cpp-mi-protocol" name="cpp-mi-protocol" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#cpp-mi-protocol-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="cpp-mi-protocol-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+
+
+            <h2 class="docs-heading">C++ Paxos
+              <span class="anchor-target" id="cpp-paxos"></span>
+              <a href="#cpp-paxos" name="cpp-paxos" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#cpp-paxos-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="cpp-paxos-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= CPP ===============================  -->
+
+
+
+
+
+
+          <!-- ========================= JAVA ===============================  -->
+          <div class="docs-section">
+            <div class="page-header">
+              <h1 class="docs-heading">JAVA
+                <span class="anchor-target" id="java"></span>
+                <a href="#java" name="java" class="anchor glyphicon glyphicon-link"></a>
+              </h1>
+            </div>
+            <blockquote>
+              <p>JAVA place holder.</p>
+            </blockquote>
+
+
+            <h2 class="docs-heading">JAVA MI protocol
+              <span class="anchor-target" id="mi-protocol"></span>
+              <a href="#java-mi-protocol" name="java-mi-protocol" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#java-mi-protocol-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="java-mi-protocol-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+
+
+            <h2 class="docs-heading">JAVA paxos
+              <span class="anchor-target" id="java-paxos"></span>
+              <a href="#java-paxos" name="java-paxos" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#java-paxos-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="java-paxos-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ========================= JAVA ===============================  -->
+
+
+
+          <!-- ========================= GO ===============================  -->
+          <div class="docs-section">
+            <div class="page-header">
+              <h1 class="docs-heading">GO
+                <span class="anchor-target" id="go"></span>
+                <a href="#go" name="go" class="anchor glyphicon glyphicon-link"></a>
+              </h1>
+            </div>
+            <blockquote>
+              <p>GO place holder.</p>
+            </blockquote>
+
+
+            <h2 class="docs-heading">GO MI protocol
+              <span class="anchor-target" id="mi-protocol"></span>
+              <a href="#go-mi-protocol" name="go-mi-protocol" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#go-mi-protocol-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="go-mi-protocol-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+
+
+            <h2 class="docs-heading">GO paxos
+              <span class="anchor-target" id="go-paxos"></span>
+              <a href="#go-paxos" name="go-paxos" class="anchor glyphicon glyphicon-link"></a>
+            </h2>
+            <div>
+              <p>Author: <a href="https://github.com/ivycheung1208">Jingyi Zhang</a></p>
+              <p>Homepage: <a href="https://github.com/ivycheung1208/CacheCoherence/blob/master/MOESIF_protocol.cpp">MI protocol</a></p>
+              <p>Release Date: 2014-12-3</p>
+              <p>Lines Total: 192</p>
+              <p>Addtional Information: Implementation of MI protocol for a bus-bases broadcast system</p>
+              <p>Platform: Windows, Mac OS, Linux</p>
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#go-paxos-comments" aria-expanded="false" aria-controls="collapseExample">
+                Comments
+              </a>
+              <div class="collapse" id="go-paxos-comments" aria-expanded="false">
+                <div class="well">
+                  Comments placeholder
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- ========================= GO ===============================  -->
+
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer class="footer" role="contentinfo">
+    <div class="container">
+
+      <p>place holder.</p>
+      <ul class="footer-links">
+        <li>links</li>
+
+        <li class="muted">&#xB7;</li>
+        <li>link1</li>
+        <li class="muted">&#xB7;</li>
+        <li>link1</li>
+        <li class="muted">&#xB7;</li>
+        <li>link1</li>
+
+      </ul>
+    </div>
+  </footer>
+
+
+
+  <!-- Core JavaScript
+================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+  <script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.2.0/holder.min.js"></script>
+  <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+
+
+
+
+</body>
+
+</html>
