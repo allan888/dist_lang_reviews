@@ -7,7 +7,7 @@
 #
 # Host: s2.zhujieao.com (MySQL 5.5.47-0ubuntu0.14.04.1)
 # Database: dist
-# Generation Time: 2016-03-03 15:07:21 +0000
+# Generation Time: 2016-03-03 15:15:20 +0000
 # ************************************************************
 
 
@@ -46,6 +46,7 @@ CREATE TABLE `projects` (
   `additional_attributes` varchar(1000) DEFAULT NULL,
   `list_on_dist_algo_web_site` tinyint(1) DEFAULT '1',
   `submitter` varchar(500) DEFAULT NULL,
+  `submitter_email` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
