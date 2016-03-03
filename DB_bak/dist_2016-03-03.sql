@@ -1,13 +1,13 @@
 # ************************************************************
 # Sequel Pro SQL dump
-# Version 4135
+# Version 4529
 #
 # http://www.sequelpro.com/
-# http://code.google.com/p/sequel-pro/
+# https://github.com/sequelpro/sequelpro
 #
 # Host: s2.zhujieao.com (MySQL 5.5.47-0ubuntu0.14.04.1)
 # Database: dist
-# Generation Time: 2016-03-03 14:08:19 +0000
+# Generation Time: 2016-03-03 15:07:21 +0000
 # ************************************************************
 
 
@@ -27,6 +27,25 @@ DROP TABLE IF EXISTS `projects`;
 
 CREATE TABLE `projects` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `title` varchar(200) NOT NULL DEFAULT '',
+  `home_page` varchar(500) DEFAULT NULL,
+  `developer` varchar(500) DEFAULT NULL,
+  `developer_email` varchar(500) DEFAULT NULL,
+  `developer_home_page` varchar(500) DEFAULT NULL,
+  `problem` varchar(500) DEFAULT NULL,
+  `algorithm` varchar(500) DEFAULT NULL,
+  `language` varchar(500) DEFAULT NULL,
+  `language_version` varchar(500) DEFAULT NULL,
+  `release_date` date DEFAULT NULL,
+  `release_version` varchar(500) DEFAULT NULL,
+  `platforms` varchar(500) DEFAULT NULL,
+  `lines_total` int(11) DEFAULT NULL,
+  `lines_pure` int(11) DEFAULT NULL,
+  `applications` varchar(500) DEFAULT NULL,
+  `additional_information` varchar(1000) DEFAULT NULL,
+  `additional_attributes` varchar(1000) DEFAULT NULL,
+  `list_on_dist_algo_web_site` tinyint(1) DEFAULT '1',
+  `submitter` varchar(500) DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
