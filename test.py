@@ -9,6 +9,7 @@ manager = Manager(app)
 
 @app.route('/')
 def index():
+    import json, request
     response = make_response('web')
     response.set_cookie('test_cookie_key','test_cookie_value')
     name = "world"
