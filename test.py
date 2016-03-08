@@ -1,17 +1,37 @@
+import json
+from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask, render_template
 from flask import make_response
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 
+
+
+
+
+
 app = Flask(__name__)
 Bootstrap(app)
 manager = Manager(app)
 
+db = SQLAlchemy(app)
+app.config['SQLALCHEMY_DATABASE_URI'] ='mysql://webadmin:webadmin123.@s2.zhujieao.com/dist'
+app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
+
+class Project(db.Model):
+    __tablename__ = 'projects'
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(200))
+    def __repr__(self):
+        return '<project % r>' % self.title
+
 @app.route('/')
 def index():
-    import json, request
     response = make_response('web')
     response.set_cookie('test_cookie_key','test_cookie_value')
+    projects = Project.query.all()
+    print Project
+    print projects
     name = "world"
     return render_template('index.html', name=name)
 
