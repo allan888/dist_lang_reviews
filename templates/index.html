@@ -99,9 +99,15 @@
 
             <ul class="nav sidenav">
 
-              {% print languages %}
-              {% for language in languages %}
-              {{ language }}
+
+              {% for language in projects %}
+              <li><a href="#{{ language }}">{{ language }}++</a>
+                <ul class="nav">
+                  {% for project in projects[language] %}
+                  <li><a href="#{{language|replace(" ", "-")~"-"~project|replace(" ", "-")}}">{{project}}</a></li>
+                  {% endfor %}
+                </ul>
+              </li>
               {% endfor %}
 
 

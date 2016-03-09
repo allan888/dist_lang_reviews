@@ -70,7 +70,7 @@ def index():
     pw = ProjectWrapper(projects)
 
     #print projects[0].title
-    return render_template('index.html', projects=pw)
+    return render_template('index.html', projects=pw.languages)
 
 @app.route('/user/<name>')
 def user(name = 'world'):
