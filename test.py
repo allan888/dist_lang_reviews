@@ -43,16 +43,34 @@ class Project(db.Model):
     submitter = db.Column(db.String(500))
     submitter_email = db.Column(db.String(500))
     home_page = db.Column(db.String(500))
+
     def __repr__(self):
         return '<project % r>' % self.title
+
+
+class ProjectWrapper():
+    def __init__(self, projects):
+        print "init pw"
+        self.projects = projects
+        self.languages = {}
+        for project in self.projects:
+            if project.language in self.languages:
+                if project.algorithm in self.languages[project.language]:
+                    self.languages[project.language].append(project)
+                else:
+                    self.languages[project.language] = [project]
+            else:
+                self.languages[project.language] = {project.algorithm:[project]}
 
 @app.route('/')
 def index():
     response = make_response('web')
     response.set_cookie('test_cookie_key','test_cookie_value')
     projects = Project.query.all()
+    pw = ProjectWrapper(projects)
+
     #print projects[0].title
-    return render_template('index.html', projects=projects)
+    return render_template('index.html', projects=pw)
 
 @app.route('/user/<name>')
 def user(name = 'world'):
