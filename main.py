@@ -50,15 +50,14 @@ class Project(db.Model):
 
 class ProjectWrapper():
     def __init__(self, projects):
-        print "init pw"
         self.projects = projects
         self.languages = {}
         for project in self.projects:
             if project.language in self.languages:
                 if project.algorithm in self.languages[project.language]:
-                    self.languages[project.language].append(project)
+                    self.languages[project.language][project.algorithm].append(project)
                 else:
-                    self.languages[project.language] = [project]
+                    self.languages[project.language][project.algorithm] = [project]
             else:
                 self.languages[project.language] = {project.algorithm:[project]}
 
@@ -70,6 +69,7 @@ def index():
     pw = ProjectWrapper(projects)
 
     #print projects[0].title
+    print pw.languages
     return render_template('index.html', projects=pw.languages)
 
 @app.route('/user/<name>')
