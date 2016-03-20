@@ -7,6 +7,6 @@ if __name__ == '__main__':
     print s.recv(1024)
     for data in ['1', '2', '3']:
         s.send(data)
-        print s.recv(1024)
+        print s.recv(1024) 
     s.send('exit')
     s.close()

@@ -18,6 +18,7 @@ db = SQLAlchemy(app)
 app.config['SQLALCHEMY_DATABASE_URI'] ='mysql://webadmin:webadmin123.@s2.zhujieao.com/dist'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
+
 class Project(db.Model):
     __tablename__ = 'projects'
     id = db.Column(db.Integer, primary_key=True)
