@@ -14,6 +14,7 @@
 
   <!-- Main styles -->
   <link href="{{ url_for('static', filename = 'css/index.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename = 'rating/css/star-rating.css') }}" rel="stylesheet">
 
   <!-- Webfonts -->
   <script type="text/javascript">
@@ -100,12 +101,23 @@
             <ul class="nav sidenav">
 
 
-              {% for language in projects %}
+              <!-- {% for language in projects %}
               <li><a href="#{{ language }}">{{ language }}</a>
                 <ul class="nav">
                   {% for algorithm in projects[language] %}
                   <li><a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}">{{algorithm}}</a></li>
                   {% endfor %}
+                </ul>
+              </li>
+              {% endfor %} -->
+              {% for language in projects %}
+              <li><a href="#{{ language }}">{{ language }}</a>
+                <ul class="nav">
+                    {% for algorithm in projects[language] %}
+                    {% for project in projects[language][algorithm] %}
+                        <li><a href="#p{{ project.id }}">{{ project.title }}</a></li>
+                    {% endfor %}
+                    {% endfor %}
                 </ul>
               </li>
               {% endfor %}
@@ -138,8 +150,9 @@
             {% for algorithm in projects[language] %}
             {% for project in projects[language][algorithm] %}
             <h2 class="docs-heading">{{ project.title }}
-              <span class="anchor-target" id="cpp-mi-protocol"></span>
-              <a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" name="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" class="anchor glyphicon glyphicon-link"></a>
+              <span class="anchor-target" id="p{{ project.id }}"></span>
+              <!-- <a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" name="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" class="anchor glyphicon glyphicon-link"></a> -->
+              <a href="#p{{ project.id }}" name="p{{ project.id }}" class="anchor glyphicon glyphicon-link"></a>
             </h2>
             <div>
               <p>Author: <a href="{{ project.developer_home_page }}">{{ project.developer }}</a></p>
@@ -148,12 +161,50 @@
               <p>Lines Total: {{ project.lines_total }}</p>
               <p>Addtional Information: {{ project.additional_information }}</p>
               <p>Platform: {{ project.platforms }}</p>
-              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")~"-comments"}}" aria-expanded="false" aria-controls="collapseExample">
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{ "p"~project.id~"-comments"}}" aria-expanded="false" aria-controls="collapseExample" onclick="getComments('{{project.id}}')">
                 Comments
               </a>
-              <div class="collapse" id="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")~"-comments"}}" aria-expanded="false">
+              <div class="collapse" id="{{ "p"~project.id~"-comments"}}" aria-expanded="false">
+                <div class="well" id="commentBox_p{{project.id}}">
+                </div>
                 <div class="well">
-                  Comments placeholder
+
+                    <form class="form-horizontal" action="submitComment/p{{project.id}}" method="post">
+
+                      <div class="form-group">
+                        <div class="row">
+                            <label for="inputEmail_p{{ project.id}}" class="col-sm-2 control-label">Email</label>
+                            <div class="col-sm-4">
+                              <input type="email" class="form-control" id="inputEmail_p{{ project.id}}" placeholder="Email">
+                            </div>
+                            <div class="col-sm-4">
+                              <input id="rating_p{{ project.id}}" type="text" class="rating" data-size="xs" data-show-caption="false">
+                            </div>
+                        </div>
+                      </div>
+
+
+
+                      <div class="form-group">
+                          <div class="row">
+                            <label for="inputComment_p{{ project.id}}" class="col-sm-2 control-label">Comment</label>
+                            <div class="col-sm-8">
+                              <textarea class="form-control" rows="3" id="inputComment_p{{ project.id}}"></textarea>
+                            </div>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <div class="row">
+                            <div class="col-sm-2"></div>
+                            <div class="col-sm-8">
+                              <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                      </div>
+
+                    </form>
+
                 </div>
               </div>
             </div>
@@ -200,7 +251,18 @@
   <script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.2.0/holder.min.js"></script>
   <script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
 
+  <script src="{{ url_for('static', filename = 'rating/js/star-rating.js') }}"></script>
 
+
+  <script type="text/javascript">
+    function getComments(pid){
+      var boxId = 'commentBox_p'.concat(pid)
+      $.ajax({url: "comments/".concat(pid), success: function(result){
+        document.getElementById(boxId).innerHTML = "result";
+      }});
+
+    }
+  </script>
 
 
 </body>

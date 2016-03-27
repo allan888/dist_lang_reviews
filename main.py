@@ -54,13 +54,16 @@ class ProjectWrapper():
         self.projects = projects
         self.languages = {}
         for project in self.projects:
-            if project.language in self.languages:
-                if project.algorithm in self.languages[project.language]:
-                    self.languages[project.language][project.algorithm].append(project)
+            lans = project.language.split(',')
+            lans = map(lambda x:x.strip(), lans)
+            for lan in lans:
+                if lan in self.languages:
+                    if project.algorithm in self.languages[lan]:
+                        self.languages[lan][project.algorithm].append(project)
+                    else:
+                        self.languages[lan][project.algorithm] = [project]
                 else:
-                    self.languages[project.language][project.algorithm] = [project]
-            else:
-                self.languages[project.language] = {project.algorithm:[project]}
+                    self.languages[lan] = {project.algorithm:[project]}
 
 @app.route('/')
 def index():
@@ -75,6 +78,10 @@ def index():
 
 @app.route('/user/<name>')
 def user(name = 'world'):
+    return render_template('user.html', name=name)
+
+@app.route('/comments/<pid>')
+def getComments(pid):
     return render_template('user.html', name=name)
 
 def run_before_first_request():
