@@ -169,16 +169,16 @@
                 </div>
                 <div class="well">
 
-                    <form class="form-horizontal" action="submitComment/p{{project.id}}" method="post">
+                    <form class="form-horizontal" action="submitComment/{{project.id}}" method="post">
 
                       <div class="form-group">
                         <div class="row">
                             <label for="inputEmail_p{{ project.id}}" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-4">
-                              <input type="email" class="form-control" id="inputEmail_p{{ project.id}}" placeholder="Email">
+                              <input name="email" type="email" class="form-control" id="inputEmail_p{{ project.id}}" placeholder="Email">
                             </div>
                             <div class="col-sm-4">
-                              <input id="rating_p{{ project.id}}" type="text" class="rating" data-size="xs" data-show-caption="false">
+                              <input name="point" id="rating_p{{ project.id}}" type="text" class="rating" data-size="xs" data-show-caption="false">
                             </div>
                         </div>
                       </div>
@@ -189,7 +189,7 @@
                           <div class="row">
                             <label for="inputComment_p{{ project.id}}" class="col-sm-2 control-label">Comment</label>
                             <div class="col-sm-8">
-                              <textarea class="form-control" rows="3" id="inputComment_p{{ project.id}}"></textarea>
+                              <textarea name="content" class="form-control" rows="3" id="inputComment_p{{ project.id}}"></textarea>
                             </div>
                         </div>
                       </div>
@@ -257,8 +257,15 @@
   <script type="text/javascript">
     function getComments(pid){
       var boxId = 'commentBox_p'.concat(pid)
-      $.ajax({url: "comments/".concat(pid), success: function(result){
-        document.getElementById(boxId).innerHTML = "result";
+      $.ajax({url: "API/comments/".concat(pid), success: function(result){
+        result = JSON.parse(result)
+        var html = ''
+        for(var i = 0; i < result.length; i ++){
+            var obj = result[i]
+            var comment = '<div>' + obj['email'] + '<br/>' + obj['name'] + '<br/>' + obj['content'] + '<br/>' + obj['date'] + '<br/>' + obj['point'] + '</div>'
+            html = html + comment
+        }
+        document.getElementById(boxId).innerHTML = html
       }});
 
     }
