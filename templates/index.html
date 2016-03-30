@@ -115,7 +115,7 @@
                 <ul class="nav">
                     {% for algorithm in projects[language] %}
                     {% for project in projects[language][algorithm] %}
-                        <li><a href="#p{{ project.id }}">{{ project.title }}</a></li>
+                        <li><a href="#p{{ project.id~project.language|replace(" ", "_") }}">{{ project.title }}</a></li>
                     {% endfor %}
                     {% endfor %}
                 </ul>
@@ -150,9 +150,9 @@
             {% for algorithm in projects[language] %}
             {% for project in projects[language][algorithm] %}
             <h2 class="docs-heading">{{ project.title }}
-              <span class="anchor-target" id="p{{ project.id }}"></span>
+              <span class="anchor-target" id="p{{ project.id~project.language|replace(" ", "_") }}"></span>
               <!-- <a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" name="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" class="anchor glyphicon glyphicon-link"></a> -->
-              <a href="#p{{ project.id }}" name="p{{ project.id }}" class="anchor glyphicon glyphicon-link"></a>
+              <a href="#p{{ project.id~project.language|replace(" ", "_") }}" name="p{{ project.id~project.language|replace(" ", "_") }}" class="anchor glyphicon glyphicon-link"></a>
             </h2>
             <div>
               <p>Author: <a href="{{ project.developer_home_page }}">{{ project.developer }}</a></p>
@@ -161,11 +161,11 @@
               <p>Lines Total: {{ project.lines_total }}</p>
               <p>Addtional Information: {{ project.additional_information }}</p>
               <p>Platform: {{ project.platforms }}</p>
-              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{ "p"~project.id~"-comments"}}" aria-expanded="false" aria-controls="collapseExample" onclick="getComments('{{project.id}}')">
+              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{ "p"~project.id~project.language|replace(" ", "_")~"-comments"}}" aria-expanded="false" aria-controls="collapseExample" onclick="getComments('{{project.language|replace(" ", "_")}}','{{project.id}}')">
                 Comments
               </a>
-              <div class="collapse" id="{{ "p"~project.id~"-comments"}}" aria-expanded="false">
-                <div class="well" id="commentBox_p{{project.id}}">
+              <div class="collapse" id="{{ "p"~project.id~project.language|replace(" ", "_")~"-comments"}}" aria-expanded="false">
+                <div class="well" id="commentBox_p{{project.id~project.language|replace(" ", "_")}}">
                 </div>
                 <div class="well">
 
@@ -173,12 +173,12 @@
 
                       <div class="form-group">
                         <div class="row">
-                            <label for="inputEmail_p{{ project.id}}" class="col-sm-2 control-label">Email</label>
+                            <label for="inputEmail_p{{ project.id~project.language|replace(" ", "_") }}" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-4">
-                              <input name="email" type="email" class="form-control" id="inputEmail_p{{ project.id}}" placeholder="Email">
+                              <input name="email" type="email" class="form-control" id="inputEmail_p{{ project.id~project.language|replace(" ", "_") }}" placeholder="Email">
                             </div>
                             <div class="col-sm-4">
-                              <input name="point" id="rating_p{{ project.id}}" type="text" class="rating" data-size="xs" data-show-caption="false">
+                              <input name="point" id="rating_p{{ project.id~project.language|replace(" ", "_") }}" type="text" class="rating" data-size="xs" data-show-caption="false">
                             </div>
                         </div>
                       </div>
@@ -187,9 +187,9 @@
 
                       <div class="form-group">
                           <div class="row">
-                            <label for="inputComment_p{{ project.id}}" class="col-sm-2 control-label">Comment</label>
+                            <label for="inputComment_p{{ project.id~project.language|replace(" ", "_") }}" class="col-sm-2 control-label">Comment</label>
                             <div class="col-sm-8">
-                              <textarea name="content" class="form-control" rows="3" id="inputComment_p{{ project.id}}"></textarea>
+                              <textarea name="content" class="form-control" rows="3" id="inputComment_p{{ project.id~project.language|replace(" ", "_") }}"></textarea>
                             </div>
                         </div>
                       </div>
@@ -255,8 +255,8 @@
 
 
   <script type="text/javascript">
-    function getComments(pid){
-      var boxId = 'commentBox_p'.concat(pid)
+    function getComments(lang, pid){
+      var boxId = 'commentBox_p'.concat(pid).concat(lang)
       $.ajax({url: "API/comments/".concat(pid), success: function(result){
         result = JSON.parse(result)
         var html = ''

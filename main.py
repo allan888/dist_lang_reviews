@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from flask import make_response
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
+import random
 
 
 
@@ -124,6 +125,10 @@ def index():
 @app.route('/user/<name>')
 def user(name = 'world'):
     return render_template('user.html', name=name)
+
+@app.route('/test')
+def test():
+    return render_template('test.html')
 
 @app.route('/API/comments/<pid>')
 def getComments(pid):

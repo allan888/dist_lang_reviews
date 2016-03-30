@@ -1,0 +1,7 @@
+{% set uid = 0 %}
+{% for n in range(10) %}
+{% for m in range(10) %}
+{{ uid }}
+{% uid = uid + 1 %}
+{% endfor %}
+{% endfor %}
