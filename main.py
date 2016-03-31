@@ -5,6 +5,8 @@ from flask import make_response
 from flask.ext.script import Manager
 from flask.ext.bootstrap import Bootstrap
 import random
+import sys
+import inspect
 
 
 
@@ -103,13 +105,14 @@ class ProjectWrapper():
             lans = project.language.split(',')
             lans = map(lambda x:x.strip(), lans)
             for lan in lans:
-                if lan in self.languages:
-                    if project.algorithm in self.languages[lan]:
-                        self.languages[lan][project.algorithm].append(project)
+                if lan != '':
+                    if lan in self.languages:
+                        if project.algorithm in self.languages[lan]:
+                            self.languages[lan][project.algorithm].append(project)
+                        else:
+                            self.languages[lan][project.algorithm] = [project]
                     else:
-                        self.languages[lan][project.algorithm] = [project]
-                else:
-                    self.languages[lan] = {project.algorithm:[project]}
+                        self.languages[lan] = {project.algorithm:[project]}
 
 @app.route('/')
 def index():
@@ -129,6 +132,51 @@ def user(name = 'world'):
 @app.route('/test')
 def test():
     return render_template('test.html')
+
+@app.route('/API/search', methods=['POST', 'GET'])
+def search():
+    query = {}
+    query['title'] = request.args.get('title','')
+    query['developer_email'] = request.args.get('developer_email','')
+    query['additional_information'] = request.args.get('additional_information','')
+    query['home_page'] = request.args.get('home_page','')
+    query['language'] = request.args.get('language','')
+    query['platforms'] = request.args.get('platform','')
+    query['algorithm'] = request.args.get('algorithm','')
+    query['problem'] = request.args.get('problem','')
+    no_parameter = True
+    for q in query:
+        if query[q] != '':
+            no_parameter = False
+            print q, query[q]
+        query[q] = '%{0}%'.format(query[q])
+    if no_parameter:
+        return 'error'
+    # tilte = '%{0}%'.format(tilte)
+    # developer_email = '%{0}%'.format(developer_email)
+    # additional_information = '%{0}%'.format(additional_information)
+    # home_page = '%{0}%'.format(home_page)
+    # language = '%{0}%'.format(language)
+    # platforms = '%{0}%'.format(platforms)
+    # algorithm = '%{0}%'.format(algorithm)
+    # problem = '%{0}%'.format(problem)
+    # print [ query[q] for q in query if query[q] != '%%' ]
+    # print [ getattr(getattr(Project, q),'ilike')(q) for q in query if query[q] != '%%' ][0]
+    # print Project.title.ilike('%Atomic%')
+    qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
+    for qqq in qs:
+        print qqq
+    project = Project.query.filter(  *qs ).all()
+        # Project.title.ilike(query['title']),\
+        # Project.developer_email.ilike(query['developer_email']),\
+        # Project.additional_information.ilike(query['additional_information']),\
+        # Project.home_page.ilike(query['home_page']),\
+        # Project.language.ilike(query['language']),\
+        # Project.platforms.ilike(query['platforms']),\
+        # Project.algorithm.ilike(query['algorithm']),\
+        # Project.problem.ilike(query['problem'])
+    # )
+    return json.dumps([e.serialize() for e in project])
 
 @app.route('/API/comments/<pid>')
 def getComments(pid):
