@@ -64,7 +64,7 @@
         <ul class="nav navbar-nav">
 
           <li>
-            <a href="features/">Homepage</a>
+            <a href="/">Homepage</a>
 
           </li>
           <li>
@@ -96,7 +96,10 @@
     <div class="row">
       <div class="col-md-3">
         <div class="sidebar hidden-print" role="complementary">
+
+
           <div id="navigation">
+
 
             <ul class="nav sidenav">
 
@@ -110,8 +113,10 @@
                 </ul>
               </li>
               {% endfor %} -->
+
+
               {% for language in projects %}
-              <li><a href="#{{ language }}">{{ language }}</a>
+              <li class="lang_sidebar {{language}}"><a href="#{{ language }}" onclick="return collapseLangSideBar('{{language}}')">{{ language }}</a>
                 <ul class="nav">
                     {% for algorithm in projects[language] %}
                     {% for project in projects[language][algorithm] %}
@@ -237,7 +242,13 @@
 
       </ul>
     </div>
-  </footer> 
+  </footer>
+
+  <span id="top-link-block" class="hidden">
+      <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+          <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+      </a>
+  </span><!-- /top-link-block -->
 
 
 
@@ -254,7 +265,14 @@
   <script src="{{ url_for('static', filename = 'rating/js/star-rating.js') }}"></script>
 
 
+
   <script type="text/javascript">
+    if ( ($(window).height() + 100) < $(document).height() ) {
+        $('#top-link-block').removeClass('hidden').affix({
+            // how far to scroll down before link "slides" into view
+            offset: {top:100}
+        });
+    }
     function getComments(lang, pid){
       var boxId = 'commentBox_p'.concat(pid).concat(lang)
       $.ajax({url: "API/comments/".concat(pid), success: function(result){
@@ -268,6 +286,15 @@
         document.getElementById(boxId).innerHTML = html
       }});
 
+    }
+    function collapseLangSideBar(language){
+        var selector = "li.lang_sidebar."+language
+        if( $(selector).hasClass("active")){
+            $(selector).removeClass("active");
+            return false
+        }else{
+            return true;
+        }
     }
   </script>
 

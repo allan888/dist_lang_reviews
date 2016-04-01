@@ -64,7 +64,7 @@
         <ul class="nav navbar-nav">
 
           <li>
-            <a href="features/">Homepage</a>
+            <a href="/">Homepage</a>
 
           </li>
           <li>
@@ -96,7 +96,23 @@
     <div class="row">
       <div class="col-md-3">
         <div class="sidebar hidden-print" role="complementary">
+
+
+            <div class="dropdown">
+              <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Problem
+              <span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><a href="/search?problem=Distributed Hash Table">Distributed Hash Table</a></li>
+                <li><a href="/search?problem=Cache coherence">Cache Coherence</a></li>
+                <li><a href="/search?problem=key authentication">Key Authentication</a></li>
+                <li><a href="/search?problem=Security Protocol">Security Protocol</a></li>
+                <li><a href="/search?problem=symmetric encryption ">Symmetric Encryption </a></li>
+              </ul>
+            </div>
+
+
           <div id="navigation">
+
 
             <ul class="nav sidenav">
 
@@ -110,6 +126,8 @@
                 </ul>
               </li>
               {% endfor %} -->
+
+
               {% for language in projects %}
               <li class="lang_sidebar {{language}}"><a href="#{{ language }}" onclick="return collapseLangSideBar('{{language}}')">{{ language }}</a>
                 <ul class="nav">

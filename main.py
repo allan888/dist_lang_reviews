@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 import json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request
@@ -134,7 +136,7 @@ def test():
     return render_template('test.html')
 
 @app.route('/API/search', methods=['POST', 'GET'])
-def search():
+def searchapi():
     query = {}
     query['title'] = request.args.get('title','')
     query['developer_email'] = request.args.get('developer_email','')
@@ -145,6 +147,7 @@ def search():
     query['algorithm'] = request.args.get('algorithm','')
     query['problem'] = request.args.get('problem','')
     no_parameter = True
+    lang = query['language']
     for q in query:
         if query[q] != '':
             no_parameter = False
@@ -163,10 +166,9 @@ def search():
     # print [ query[q] for q in query if query[q] != '%%' ]
     # print [ getattr(getattr(Project, q),'ilike')(q) for q in query if query[q] != '%%' ][0]
     # print Project.title.ilike('%Atomic%')
+
     qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
-    for qqq in qs:
-        print qqq
-    project = Project.query.filter(  *qs ).all()
+    projects = Project.query.filter(  *qs ).all()
         # Project.title.ilike(query['title']),\
         # Project.developer_email.ilike(query['developer_email']),\
         # Project.additional_information.ilike(query['additional_information']),\
@@ -176,7 +178,66 @@ def search():
         # Project.algorithm.ilike(query['algorithm']),\
         # Project.problem.ilike(query['problem'])
     # )
-    return json.dumps([e.serialize() for e in project])
+
+    return json.dumps([e.serialize() for e in projects])
+
+
+@app.route('/search', methods=['POST', 'GET'])
+def search():
+    query = {}
+    query['title'] = request.args.get('title','')
+    query['developer_email'] = request.args.get('developer_email','')
+    query['additional_information'] = request.args.get('additional_information','')
+    query['home_page'] = request.args.get('home_page','')
+    query['language'] = request.args.get('language','')
+    query['platforms'] = request.args.get('platform','')
+    query['algorithm'] = request.args.get('algorithm','')
+    query['problem'] = request.args.get('problem','')
+    no_parameter = True
+    lang = query['language']
+    for q in query:
+        if query[q] != '':
+            no_parameter = False
+            print q, query[q]
+        query[q] = '%{0}%'.format(query[q])
+    if no_parameter:
+        return 'error'
+    # tilte = '%{0}%'.format(tilte)
+    # developer_email = '%{0}%'.format(developer_email)
+    # additional_information = '%{0}%'.format(additional_information)
+    # home_page = '%{0}%'.format(home_page)
+    # language = '%{0}%'.format(language)
+    # platforms = '%{0}%'.format(platforms)
+    # algorithm = '%{0}%'.format(algorithm)
+    # problem = '%{0}%'.format(problem)
+    # print [ query[q] for q in query if query[q] != '%%' ]
+    # print [ getattr(getattr(Project, q),'ilike')(q) for q in query if query[q] != '%%' ][0]
+    # print Project.title.ilike('%Atomic%')
+
+    qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
+    projects = Project.query.filter(  *qs ).all()
+        # Project.title.ilike(query['title']),\
+        # Project.developer_email.ilike(query['developer_email']),\
+        # Project.additional_information.ilike(query['additional_information']),\
+        # Project.home_page.ilike(query['home_page']),\
+        # Project.language.ilike(query['language']),\
+        # Project.platforms.ilike(query['platforms']),\
+        # Project.algorithm.ilike(query['algorithm']),\
+        # Project.problem.ilike(query['problem'])
+    # )
+    pw = ProjectWrapper(projects)
+    search_by_lang = False
+    for k in query:
+        if query[k] != '%%' and query[k] != '' and k == 'language':
+            search_by_lang = True
+
+    if search_by_lang:
+        for l in pw.languages:
+            if str.lower(str(lang)) == str.lower(str(l)):
+                lang = l
+        return render_template('search.html', projects={lang: pw.languages[lang]})
+    else:
+        return render_template('search.html', projects=pw.languages)
 
 @app.route('/API/comments/<pid>')
 def getComments(pid):
