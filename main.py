@@ -150,14 +150,14 @@ class ProjectWrapperTest():
 @app.route('/')
 def index():
     query = {}
-    query['orderBy'] = request.args.get('orderBy','')
+    query['groupBy'] = request.args.get('groupBy','')
     response = make_response('web')
     response.set_cookie('test_cookie_key','test_cookie_value')
     projects = Project.query.order_by(desc(Project.score)).all()
     pw = None
-    if query['orderBy'] == 'problem':
+    if query['groupBy'] == 'problem':
         pw = ProjectWrapperTest(projects)
-        return render_template('index_orderby_problem.html', projects=pw.languages)
+        return render_template('index_groupby_problem.html', projects=pw.languages)
     else:
         pw = ProjectWrapper(projects)
         return render_template('index.html', projects=pw.languages)
@@ -172,7 +172,7 @@ def index2():
     pw = None
     if query['groupBy'] == 'problem':
         pw = ProjectWrapperTest(projects)
-        return render_template('index_orderby_problem.html', projects=pw.languages)
+        return render_template('index_groupby_problem.html', projects=pw.languages)
     else:
         pw = ProjectWrapper(projects)
         return render_template('index.html', projects=pw.languages)
