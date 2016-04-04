@@ -9,6 +9,7 @@ from flask.ext.bootstrap import Bootstrap
 import random
 import sys
 import inspect
+from sqlalchemy import desc
 
 
 
@@ -70,6 +71,7 @@ class Project(db.Model):
     list_on_dist_algo_web_site = db.Column(db.String(500))
     submitter = db.Column(db.String(500))
     submitter_email = db.Column(db.String(500))
+    score = db.Column(db.Float)
 
     def __repr__(self):
         return '<project % r>' % self.title
@@ -95,10 +97,27 @@ class Project(db.Model):
             'additional_attributes': self.additional_attributes,
             'list_on_dist_algo_web_site': self.list_on_dist_algo_web_site,
             'submitter': self.submitter,
-            'submitter_email': self.submitter_email
+            'submitter_email': self.submitter_email,
+            'score': self.score
         }
 
 
+# class ProjectWrapper():
+#     def __init__(self, projects):
+#         self.projects = projects
+#         self.languages = {}
+#         for project in self.projects:
+#             lans = project.language.split(',')
+#             lans = map(lambda x:x.strip(), lans)
+#             for lan in lans:
+#                 if lan != '':
+#                     if lan in self.languages:
+#                         if project.algorithm in self.languages[lan]:
+#                             self.languages[lan][project.algorithm].append(project)
+#                         else:
+#                             self.languages[lan][project.algorithm] = [project]
+#                     else:
+#                         self.languages[lan] = {project.algorithm:[project]}
 class ProjectWrapper():
     def __init__(self, projects):
         self.projects = projects
@@ -109,31 +128,76 @@ class ProjectWrapper():
             for lan in lans:
                 if lan != '':
                     if lan in self.languages:
-                        if project.algorithm in self.languages[lan]:
-                            self.languages[lan][project.algorithm].append(project)
-                        else:
-                            self.languages[lan][project.algorithm] = [project]
+                        self.languages[lan].append(project)
                     else:
-                        self.languages[lan] = {project.algorithm:[project]}
+                        self.languages[lan] = [project]
+
+class ProjectWrapperTest():
+    def __init__(self, projects):
+        self.projects = projects
+        self.languages = {}
+        for project in self.projects:
+            lans = project.problem.split(',')
+            lans = map(lambda x:x.strip(), lans)
+            for lan in lans:
+                if lan != '':
+                    if lan in self.languages:
+                        self.languages[lan].append(project)
+                    else:
+                        self.languages[lan] = [project]
+
 
 @app.route('/')
 def index():
+    query = {}
+    query['orderBy'] = request.args.get('orderBy','')
     response = make_response('web')
     response.set_cookie('test_cookie_key','test_cookie_value')
-    projects = Project.query.all()
-    pw = ProjectWrapper(projects)
+    projects = Project.query.order_by(desc(Project.score)).all()
+    pw = None
+    if query['orderBy'] == 'problem':
+        pw = ProjectWrapperTest(projects)
+        return render_template('index_orderby_problem.html', projects=pw.languages)
+    else:
+        pw = ProjectWrapper(projects)
+        return render_template('index.html', projects=pw.languages)
+
+@app.route('/index', methods=['POST', 'GET'])
+def index2():
+    query = {}
+    query['groupBy'] = request.args.get('groupBy','')
+    response = make_response('web')
+    response.set_cookie('test_cookie_key','test_cookie_value')
+    projects = Project.query.order_by(desc(Project.score)).all()
+    pw = None
+    if query['groupBy'] == 'problem':
+        pw = ProjectWrapperTest(projects)
+        return render_template('index_orderby_problem.html', projects=pw.languages)
+    else:
+        pw = ProjectWrapper(projects)
+        return render_template('index.html', projects=pw.languages)
+
+
+
+
+@app.route('/test')
+def test():
+    response = make_response('web')
+    response.set_cookie('test_cookie_key','test_cookie_value')
+    projects = Project.query.order_by(desc(Project.score)).all()
+    pw = ProjectWrapperTest(projects)
 
     #print projects[0].title
-    #print pw.languages
+
     return render_template('index.html', projects=pw.languages)
 
 @app.route('/user/<name>')
 def user(name = 'world'):
     return render_template('user.html', name=name)
 
-@app.route('/test')
-def test():
-    return render_template('test.html')
+@app.route('/advanced')
+def advanced():
+    return render_template('advanced.html')
 
 @app.route('/API/search', methods=['POST', 'GET'])
 def searchapi():
@@ -168,7 +232,7 @@ def searchapi():
     # print Project.title.ilike('%Atomic%')
 
     qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
-    projects = Project.query.filter(  *qs ).all()
+    projects = Project.query.filter(  *qs ).order_by(desc(Project.score)).all()
         # Project.title.ilike(query['title']),\
         # Project.developer_email.ilike(query['developer_email']),\
         # Project.additional_information.ilike(query['additional_information']),\
@@ -215,7 +279,7 @@ def search():
     # print Project.title.ilike('%Atomic%')
 
     qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
-    projects = Project.query.filter(  *qs ).all()
+    projects = Project.query.filter(  *qs ).order_by(desc(Project.score)).all()
         # Project.title.ilike(query['title']),\
         # Project.developer_email.ilike(query['developer_email']),\
         # Project.additional_information.ilike(query['additional_information']),\
@@ -247,7 +311,7 @@ def getComments(pid):
 
 @app.route('/API/allProjects')
 def allProjects():
-    projects = Project.query.all()
+    projects = Project.query.order_by(desc(Project.score)).all()
     return json.dumps([e.serialize() for e in projects])
 
 @app.route('/API/project/<pid>')

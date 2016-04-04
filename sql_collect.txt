@@ -1,0 +1,4 @@
+1.update scores in projects:
+update projects
+set projects.score =
+(select AVG(point) from comments where comments.pid = projects.id)
