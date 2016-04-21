@@ -140,12 +140,12 @@
               {% endfor %} -->
 
 
-              {% for language in projects %}
-              <li class="lang_sidebar {{language}}"><a href="#{{ language }}" onclick="return collapseLangSideBar('{{language}}')">{{ language }}</a>
+              {% for language_projects in projects %}
+              <li class="lang_sidebar {{language_projects[0]}}"><a href="#{{ language_projects[0] }}" onclick="return collapseLangSideBar('{{language_projects[0]}}')">{{ language_projects[0] }}</a>
                 <ul class="nav">
 
-                    {% for project in projects[language]%}
-                        <li><a href="#p{{ project.id~language|replace(" ", "_") }}">{{ project.title }}</a></li>
+                    {% for project in language_projects[1]%}
+                        <li><a href="#p{{ project.id~language_projects[0]|replace(" ", "_") }}">{{ project.title }}</a></li>
                     {% endfor %}
                 </ul>
               </li>
@@ -163,82 +163,82 @@
 
 
 
-          {% for language in projects %}
-          <div class="docs-section">
-            <div class="page-header">
-              <h1 class="docs-heading">{{ language|upper }}
-                <span class="anchor-target" id="{{ language }}"></span>
-                <a href="#{{ language }}" name="{{ language }}" class="anchor glyphicon glyphicon-link"></a>
-              </h1>
-            </div>
-            <blockquote>
-              <p>{{ language }} place holder.</p>
-            </blockquote>
+            {% for language_projects in projects %}
+            <div class="docs-section">
+              <div class="page-header">
+                <h1 class="docs-heading">{{ language_projects[0]|upper }}
+                  <span class="anchor-target" id="{{ language_projects[0] }}"></span>
+                  <a href="#{{ language_projects[0] }}" name="{{ language_projects[0] }}" class="anchor glyphicon glyphicon-link"></a>
+                </h1>
+              </div>
+              <blockquote>
+                <p>{{ language_projects[0] }} place holder.</p>
+              </blockquote>
 
 
-            {% for project in projects[language]%}
-            <h2 class="docs-heading">{{ project.title }}
-              <span class="anchor-target" id="p{{ project.id~language|replace(" ", "_") }}"></span>
-              <!-- <a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" name="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" class="anchor glyphicon glyphicon-link"></a> -->
-              <a href="#p{{ project.id~language|replace(" ", "_") }}" name="p{{ project.id~language|replace(" ", "_") }}" class="anchor glyphicon glyphicon-link"></a>
-            </h2>
-            <div>
-              <p>Author: <a href="{{ project.developer_home_page }}">{{ project.developer }}</a></p>
-              <p>Homepage: <a href="{{ project.home_page  }}">{{ project.title }}</a></p>
-              <p>Release Date: {{ project.release_date }}</p>
-              <p>Lines Total: {{ project.lines_total }}</p>
-              <p>Addtional Information: {{ project.additional_information }}</p>
-              <p>Platform: {{ project.platforms }}</p>
-              <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{ "p"~project.id~language|replace(" ", "_")~"-comments"}}" aria-expanded="false" aria-controls="collapseExample" onclick="getComments('{{language|replace(" ", "_")}}','{{project.id}}')">
-                Comments
-              </a>
-              <div class="collapse" id="{{ "p"~project.id~language|replace(" ", "_")~"-comments"}}" aria-expanded="false">
-                <div class="well" id="commentBox_p{{project.id~language|replace(" ", "_")}}">
-                </div>
-                <div class="well">
+              {% for project in language_projects[1]%}
+              <h2 class="docs-heading">{{ project.title }}
+                <span class="anchor-target" id="p{{ project.id~language_projects[0]|replace(" ", "_") }}"></span>
+                <!-- <a href="#{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" name="{{language|replace(" ", "-")~"-"~algorithm|replace(" ", "-")}}" class="anchor glyphicon glyphicon-link"></a> -->
+                <a href="#p{{ project.id~language_projects[0]|replace(" ", "_") }}" name="p{{ project.id~language_projects[0]|replace(" ", "_") }}" class="anchor glyphicon glyphicon-link"></a>
+              </h2>
+              <div>
+                <p>Author: <a href="{{ project.developer_home_page }}">{{ project.developer }}</a></p>
+                <p>Homepage: <a href="{{ project.home_page  }}">{{ project.title }}</a></p>
+                <p>Release Date: {{ project.release_date }}</p>
+                <p>Lines Total: {{ project.lines_total }}</p>
+                <p>Addtional Information: {{ project.additional_information }}</p>
+                <p>Platform: {{ project.platforms }}</p>
+                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#{{ "p"~project.id~language_projects[0]|replace(" ", "_")~"-comments"}}" aria-expanded="false" aria-controls="collapseExample" onclick="getComments('{{language_projects[0]|replace(" ", "_")}}','{{project.id}}')">
+                  Comments
+                </a>
+                <div class="collapse" id="{{ "p"~project.id~language_projects[0]|replace(" ", "_")~"-comments"}}" aria-expanded="false">
+                  <div class="well" id="commentBox_p{{project.id~language_projects[0]|replace(" ", "_")}}">
+                  </div>
+                  <div class="well">
 
-                    <form class="form-horizontal" action="submitComment/{{project.id}}" method="post">
+                      <form class="form-horizontal" action="submitComment/{{project.id}}" method="post">
 
-                      <div class="form-group">
-                        <div class="row">
-                            <label for="inputEmail_p{{ project.id~language|replace(" ", "_") }}" class="col-sm-2 control-label">Email</label>
-                            <div class="col-sm-4">
-                              <input name="email" type="email" class="form-control" id="inputEmail_p{{ project.id~language|replace(" ", "_") }}" placeholder="Email">
-                            </div>
-                            <div class="col-sm-4">
-                              <input name="point" id="rating_p{{ project.id~language|replace(" ", "_") }}" type="text" class="rating" data-size="xs" data-show-caption="false">
-                            </div>
-                        </div>
-                      </div>
-
-
-
-                      <div class="form-group">
+                        <div class="form-group">
                           <div class="row">
-                            <label for="inputComment_p{{ project.id~language|replace(" ", "_") }}" class="col-sm-2 control-label">Comment</label>
-                            <div class="col-sm-8">
-                              <textarea name="content" class="form-control" rows="3" id="inputComment_p{{ project.id~language|replace(" ", "_") }}"></textarea>
-                            </div>
+                              <label for="inputEmail_p{{ project.id~language_projects[0]|replace(" ", "_") }}" class="col-sm-2 control-label">Email</label>
+                              <div class="col-sm-4">
+                                <input name="email" type="email" class="form-control" id="inputEmail_p{{ project.id~language_projects[0]|replace(" ", "_") }}" placeholder="Email">
+                              </div>
+                              <div class="col-sm-4">
+                                <input name="point" id="rating_p{{ project.id~language_projects[0]|replace(" ", "_") }}" type="text" class="rating" data-size="xs" data-show-caption="false">
+                              </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <div class="form-group">
-                        <div class="row">
-                            <div class="col-sm-2"></div>
-                            <div class="col-sm-8">
-                              <button type="submit" class="btn btn-default">Submit</button>
-                            </div>
+
+
+                        <div class="form-group">
+                            <div class="row">
+                              <label for="inputComment_p{{ project.id~language_projects[0]|replace(" ", "_") }}" class="col-sm-2 control-label">Comment</label>
+                              <div class="col-sm-8">
+                                <textarea name="content" class="form-control" rows="3" id="inputComment_p{{ project.id~language_projects[0]|replace(" ", "_") }}"></textarea>
+                              </div>
+                          </div>
                         </div>
-                      </div>
 
-                    </form>
+                        <div class="form-group">
+                          <div class="row">
+                              <div class="col-sm-2"></div>
+                              <div class="col-sm-8">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                              </div>
+                          </div>
+                        </div>
 
+                      </form>
+
+                  </div>
                 </div>
               </div>
+              {% endfor %}
             </div>
             {% endfor %}
-          </div>
-          {% endfor %}
 
 
 

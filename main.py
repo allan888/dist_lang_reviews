@@ -131,6 +131,13 @@ class ProjectWrapper():
                         self.languages[lan].append(project)
                     else:
                         self.languages[lan] = [project]
+        print "sorting"
+        keys = self.languages.keys()
+        keys.sort()
+        new_list = []
+        for key in keys:
+            new_list.append((key, sorted(self.languages[key], key=lambda p: p.title)))
+        self.languages = new_list
 
 class ProjectWrapperTest():
     def __init__(self, projects):
@@ -145,6 +152,13 @@ class ProjectWrapperTest():
                         self.languages[lan].append(project)
                     else:
                         self.languages[lan] = [project]
+        print "sorting"
+        keys = self.languages.keys()
+        keys.sort()
+        new_list = []
+        for key in keys:
+            new_list.append((key, sorted(self.languages[key], key=lambda p: p.title)))
+        self.languages = new_list
 
 
 @app.route('/')
