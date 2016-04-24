@@ -1,0 +1,76 @@
+<footer class="footer" role="contentinfo">
+  <div class="container">
+
+    <p>place holder.</p>
+    <ul class="footer-links">
+      <li>links</li>
+
+      <li class="muted">&#xB7;</li>
+      <li>link1</li>
+      <li class="muted">&#xB7;</li>
+      <li>link1</li>
+      <li class="muted">&#xB7;</li>
+      <li>link1</li>
+
+    </ul>
+  </div>
+</footer>
+
+<span id="top-link-block" class="hidden">
+    <a href="#top" class="well well-sm"  onclick="$('html,body').animate({scrollTop:0},'slow');return false;">
+        <i class="glyphicon glyphicon-chevron-up"></i> Back to Top
+    </a>
+</span><!-- /top-link-block -->
+
+
+
+<!-- Core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="//code.jquery.com/jquery-1.10.2.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/holder/2.2.0/holder.min.js"></script>
+<script src="{{ url_for('static', filename = 'js/index.js') }}"></script>
+
+<script src="{{ url_for('static', filename = 'rating/js/star-rating.js') }}"></script>
+
+
+
+<script type="text/javascript">
+  if ( ($(window).height() + 100) < $(document).height() ) {
+      $('#top-link-block').removeClass('hidden').affix({
+          // how far to scroll down before link "slides" into view
+          offset: {top:100}
+      });
+  }
+  function getComments(lang, pid){
+    var boxId = 'commentBox_p'.concat(pid).concat(lang)
+    $.ajax({url: "API/comments/".concat(pid), success: function(result){
+      result = JSON.parse(result)
+      var html = ''
+      for(var i = 0; i < result.length; i ++){
+          var obj = result[i]
+          var comment = '<div>' + obj['email'] + '<br/>' + obj['name'] + '<br/>' + obj['content'] + '<br/>' + obj['date'] + '<br/>' + obj['point'] + '</div>'
+          html = html + comment
+      }
+      document.getElementById(boxId).innerHTML = html
+    }});
+
+  }
+  function collapseLangSideBar(language){
+      var selector = "li.lang_sidebar."+language
+      if( $(selector).hasClass("active")){
+          $(selector).removeClass("active");
+          return false
+      }else{
+          return true;
+      }
+  }
+</script>
+
+
+</body>
+
+</html>

@@ -213,6 +213,10 @@ def user(name = 'world'):
 def advanced():
     return render_template('advanced.html')
 
+@app.route('/submit')
+def submit():
+    return render_template('submit.html')
+
 @app.route('/API/search', methods=['POST', 'GET'])
 def searchapi():
     query = {}
