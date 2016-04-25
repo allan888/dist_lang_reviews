@@ -7150,3 +7150,9 @@ td.visible-print {
     bottom: 18px; /* height of link element */
     left: 10px; /* padding from the left side of the window */
 }
+
+
+#eventForm .form-control-feedback {
+    top: 0;
+    right: -15px;
+}

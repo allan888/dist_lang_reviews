@@ -4,144 +4,179 @@
 
       <legend>Submit new project</legend>
 
-      <div class="row" style="margin-top:5px;">
-      <div class="form-group col-md-8 col-md-offset-3">
+
+
+    <div class="row" style="margin-top:5px;">
+        <div class="form-group col-md-11 col-md-offset-2">
+            <label class="col-md-3">Title:</label>
+            <div class="col-md-8">
+                <input type="text" name="title" class="form-control" id="title">
+            </div>
+        </div>
+    </div>
+
+<div class="row" style="margin-top:5px;">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Home Page:</label>
         <div class="col-md-8">
-          <input type="text" name="title" class="form-control" id="title" placeholder="Project Title">
-        </div>
-      </div>
-    </div>
-
-
-
-<div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Home Page:</label>
-        <div class="col-md-6">
-            <input type="text" name="homepage" class="form-control" id="homepage" placeholder="Homepage">
+            <input type="text" name="home_page" class="form-control" id="home_page" >
         </div>
     </div>
 </div>
 
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Developer:</label>
+        <div class="col-md-8">
+            <input type="text" name="developer" class="form-control" id="developer" placeholder="The name of the developer of the implementation">
         </div>
     </div>
 </div>
 
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Developer Email:</label>
+        <div class="col-md-8">
+            <input type="email" name="developer_email" class="form-control" id="developer_email" >
         </div>
     </div>
 </div>
 
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Developer Home Page:</label>
+        <div class="col-md-8">
+            <input type="text" name="developer_home_page" class="form-control" id="developer_home_page" placeholder="A link to the home page of the developer">
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top:5px;">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Problem:</label>
+        <div class="col-md-8">
+            <input type="text" name="problem" class="form-control" id="problem" placeholder="The problem solved by the algorithm">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Algorithm:</label>
+        <div class="col-md-8">
+            <input type="text" name="algorithm" class="form-control" id="algorithm" placeholder="The name of the algorithm">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Release Date:</label>
+        <div class="col-md-8">
+            <div class="input-group input-append date" id="datePicker">
+                <input type="text" name="release_date" class="form-control" id="release_date" placeholder="The date when the implementation was released">
+                <span class="input-group-addon add-on"><span class="glyphicon glyphicon-calendar"></span></span>
+            </div>
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Release Version:</label>
+        <div class="col-md-8">
+            <input type="text" name="release_version" class="form-control" id="release_version" placeholder="The version of the implementation">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Platforms:</label>
+        <div class="col-md-8">
+            <select class="form-control" id="platforms" name="platforms" multiple="multiple">
+
+                <option>OS x</option>
+                <option>Windows</option>
+                <option>Linux</option>
+                <option>Other</option>
+            </select>
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Language:</label>
+        <div class="col-md-8">
+            <input type="text" name="language" class="form-control" id="language" placeholder="The language used for the implementation">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Language Version:</label>
+        <div class="col-md-8">
+            <input type="text" name="language_version" class="form-control" id="language_version" placeholder="The version of the language used for the implementation">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Lines Total:</label>
+        <div class="col-md-8">
+            <input type="text" name="lines_total" class="form-control" id="lines_total" placeholder="The total number of lines of code in the implementation">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Lines Pure:</label>
+        <div class="col-md-8">
+            <input type="text" name="lines_pure" class="form-control" id="lines_pure" placeholder="lines of code excluding comments and empty lines">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Applications:</label>
+        <div class="col-md-8">
+            <input type="text" name="applications" class="form-control" id="applications" placeholder="A list of applications, if any, that use this implementation">
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Additional Information:</label>
+        <div class="col-md-8">
+            <textarea class="form-control" rows="5" name="additional_information" id="additional_information" placeholder="A description of other features or general information about the implementation"></textarea>
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Additional Attributes:</label>
+        <div class="col-md-8">
+            <textarea class="form-control" rows="5" name="additional_attributes" id="additional_attributes" placeholder="A list of other attributes and corresponding values about the implementation, in the form of 'Attribute_Name: Attribute_Value', one per line"></textarea>
         </div>
     </div>
 </div>
 <div class="row" style="margin-top:5px;">
-    <div class="form-group col-md-8 col-md-offset-3">
-        <label class="col-md-2">Developer:</label>
-        <div class="col-md-6">
-            <input type="text" name="developer" class="form-control" id="developer">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">List on DistAlgo Web Site:</label>
+        <div class="col-md-8">
+            <input type="text" name="list_on_distalgo_web_site" class="form-control" id="list_on_distalgo_web_site" placeholder="Check this to list this implementation on the DistAlgo web site. To be listed, the implementation must be well documented.">
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:5px;">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Submitter:</label>
+        <div class="col-md-8">
+            <input type="text" name="submitter" class="form-control" id="submitter" placeholder="The name of the person submitting this entry">
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:5px;">
+    <div class="form-group col-md-11 col-md-offset-2">
+        <label class="col-md-3">Submitter Email:</label>
+        <div class="col-md-8">
+            <input type="text" name="submitter_email" class="form-control" id="submitter_email">
         </div>
     </div>
 </div>
@@ -149,8 +184,8 @@
 
 
     <div class="row" style="margin-top:5px;">
-          <div class="form-group col-md-8 col-md-offset-3">
-              <button type="submit" class="btn btn-default col-xs-8">Submit Button</button>
+          <div class="form-group col-md-4 col-md-offset-4">
+              <button type="submit" class="btn btn-default col-md-4">Submit</button>
           </div>
       </div>
 

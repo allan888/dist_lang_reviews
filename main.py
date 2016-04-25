@@ -75,6 +75,31 @@ class Project(db.Model):
 
     def __repr__(self):
         return '<project % r>' % self.title
+
+    def __init__(self, title, home_page, developer, developer_email, problem, algorithm, language, \
+    language_version, release_date, release_version, platforms, lines_total, lines_pure, applications, \
+    additional_information, additional_attributes,list_on_dist_algo_web_site, submitter, submitter_email):
+        self.title = title
+        self.home_page = home_page
+        self.developer = developer
+        self.developer_email = developer_email
+        self.problem = problem
+        self.algorithm = algorithm
+        self.language = language
+        self.language_version = language_version
+        self.release_date = release_date
+        self.release_version = release_version
+        self.platforms = platforms
+        self.lines_total = lines_total
+        self.lines_pure = lines_pure
+        self.applications = applications
+        self.additional_information = additional_information
+        self.additional_attributes = additional_attributes
+        self.list_on_dist_algo_web_site = list_on_dist_algo_web_site
+        self.submitter = submitter
+        self.submitter_email = submitter_email
+        self.score = 0.0
+
     def serialize(self):
         return {
             'id': self.id,
@@ -213,8 +238,35 @@ def user(name = 'world'):
 def advanced():
     return render_template('advanced.html')
 
-@app.route('/submit')
+@app.route('/submit',methods=['POST', 'GET'])
 def submit():
+    title = request.args.get('title','')
+    print title
+    if title != '':
+        home_page = request.args.get('home_page','')
+        developer = request.args.get('developer','')
+        developer_email = request.args.get('developer_email','')
+        developer_home_page = request.args.get('developer_home_page','')
+        problem = request.args.get('problem','')
+        algorithm = request.args.get('algorithm','')
+        release_date = request.args.get('release_date','')
+        release_version = request.args.get('release_version','')
+        platforms = request.args.get('platforms','')
+        language = request.args.get('language','')
+        language_version = request.args.get('language_version','')
+        lines_total = request.args.get('lines_total','')
+        lines_pure = request.args.get('lines_pure','')
+        applications = request.args.get('applications','')
+        additional_information = request.args.get('additional_information','')
+        additional_attributes = request.args.get('additional_attributes','')
+        list_on_distalgo_web_site = request.args.get('list_on_distalgo_web_site','')
+        submitter = request.args.get('submitter','')
+        submitter_email = request.args.get('submitter_email','')
+        project = Project(title, home_page, developer, developer_email, problem, algorithm, language, \
+        language_version, release_date, release_version, platforms, lines_total, lines_pure, applications, \
+        additional_information, additional_attributes,list_on_distalgo_web_site, submitter, submitter_email)
+        db.session.add(project)
+        db.session.commit()
     return render_template('submit.html')
 
 @app.route('/API/search', methods=['POST', 'GET'])
@@ -342,11 +394,12 @@ def getProjects(pid):
 def putComments(pid):
     project = int(pid)
     email = request.form.get('email','err')
+    name = request.form.get('name','err')
     content = request.form.get('content','err')
     point = request.form.get('point','err')
-    if email == 'err' or content == 'err' or point == 'err':
+    if email == 'err' or content == 'err' or point == 'err' or name == 'err':
         return 'error'
-    comment = Comment(pid=pid, email=email, content=content, point=point)
+    comment = Comment(pid=pid, email=email, name=name, content=content, point=point)
     db.session.add(comment)
     db.session.commit()
     return render_template('goBack.html')
