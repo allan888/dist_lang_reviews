@@ -404,11 +404,27 @@ def putComments(pid):
     db.session.commit()
     return render_template('goBack.html')
 
+@app.route('/sqlSearch', methods=['POST', 'GET'])
+def sqlSearch():
+    sql = request.form.get('sql','')
+    res = []
+    if sql != '':
+        results = db.engine.execute(sql)
+        if results is not None:
+            for row in results:
+                res.append(list(row))
+    res = json.dumps(res)
+    print res
+    print '1'
+    return render_template('sql.html', sql=sql, json=res)
+
 def run_before_first_request():
     pass
 
 def run_teardown_request(args):
     pass
+
+
 
 if __name__ == '__main__':
     app.before_first_request(run_before_first_request)
