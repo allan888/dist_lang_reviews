@@ -10,6 +10,7 @@ __pycache__/
 # Distribution / packaging
 .Python
 env/
+dist_lang_reviews_env/
 build/
 develop-eggs/
 dist/
@@ -84,3 +85,4 @@ ENV/
 
 # Spyder project settings
 .spyderproject
+

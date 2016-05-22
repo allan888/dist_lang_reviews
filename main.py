@@ -156,7 +156,6 @@ class ProjectWrapper():
                         self.languages[lan].append(project)
                     else:
                         self.languages[lan] = [project]
-        print "sorting"
         keys = self.languages.keys()
         keys.sort()
         new_list = []
@@ -177,7 +176,6 @@ class ProjectWrapperTest():
                         self.languages[lan].append(project)
                     else:
                         self.languages[lan] = [project]
-        print "sorting"
         keys = self.languages.keys()
         keys.sort()
         new_list = []
@@ -226,8 +224,6 @@ def test():
     projects = Project.query.order_by(desc(Project.score)).all()
     pw = ProjectWrapperTest(projects)
 
-    #print projects[0].title
-
     return render_template('index.html', projects=pw.languages)
 
 @app.route('/user/<name>')
@@ -241,7 +237,6 @@ def advanced():
 @app.route('/submit',methods=['POST', 'GET'])
 def submit():
     title = request.args.get('title','')
-    print title
     if title != '':
         home_page = request.args.get('home_page','')
         developer = request.args.get('developer','')
@@ -285,7 +280,6 @@ def searchapi():
     for q in query:
         if query[q] != '':
             no_parameter = False
-            print q, query[q]
         query[q] = '%{0}%'.format(query[q])
     if no_parameter:
         return 'error'
@@ -297,9 +291,6 @@ def searchapi():
     # platforms = '%{0}%'.format(platforms)
     # algorithm = '%{0}%'.format(algorithm)
     # problem = '%{0}%'.format(problem)
-    # print [ query[q] for q in query if query[q] != '%%' ]
-    # print [ getattr(getattr(Project, q),'ilike')(q) for q in query if query[q] != '%%' ][0]
-    # print Project.title.ilike('%Atomic%')
 
     qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
     projects = Project.query.filter(  *qs ).order_by(desc(Project.score)).all()
@@ -332,7 +323,6 @@ def search():
     for q in query:
         if query[q] != '':
             no_parameter = False
-            print q, query[q]
         query[q] = '%{0}%'.format(query[q])
     if no_parameter:
         return 'error'
@@ -344,9 +334,6 @@ def search():
     # platforms = '%{0}%'.format(platforms)
     # algorithm = '%{0}%'.format(algorithm)
     # problem = '%{0}%'.format(problem)
-    # print [ query[q] for q in query if query[q] != '%%' ]
-    # print [ getattr(getattr(Project, q),'ilike')(q) for q in query if query[q] != '%%' ][0]
-    # print Project.title.ilike('%Atomic%')
 
     qs = [ getattr(getattr(Project, k),'ilike')(query[k]) for k in query if query[k] != '%%' and query[k] != '']
     projects = Project.query.filter(  *qs ).order_by(desc(Project.score)).all()
@@ -414,8 +401,6 @@ def sqlSearch():
             for row in results:
                 res.append(list(row))
     res = json.dumps(res)
-    print res
-    print '1'
     return render_template('sql.html', sql=sql, json=res)
 
 def run_before_first_request():
