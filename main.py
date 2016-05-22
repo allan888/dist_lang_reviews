@@ -21,7 +21,7 @@ Bootstrap(app)
 manager = Manager(app)
 
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql://webadmin:webadmin123.@127.0.0.1/dist'
+app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://webadmin:webadmin123.@s2.zhujieao.com/dist'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 
@@ -156,7 +156,7 @@ class ProjectWrapper():
                         self.languages[lan].append(project)
                     else:
                         self.languages[lan] = [project]
-        keys = self.languages.keys()
+        keys = list(self.languages.keys())
         keys.sort()
         new_list = []
         for key in keys:
