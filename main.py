@@ -396,11 +396,20 @@ def sqlSearch():
     sql = request.form.get('sql','')
     res = []
     if sql != '':
-        results = db.engine.execute(sql)
-        if results is not None:
-            for row in results:
-                res.append(list(row))
+        if sql != '' and 'drop' not in sql and 'delete' not in sql and 'update' not in sql:
+            try:
+                results = db.engine.execute(sql)
+            except:
+                results = None
+                res.append('illegal sql query')
+            if results is not None:
+                for row in results:
+                    res.append(list(row))
+        else:
+            res.append('do not update/delete/drop table')
     res = json.dumps(res)
+    if sql == '':
+        sql = "select `title` from `projects`"
     return render_template('sql.html', sql=sql, json=res)
 
 def run_before_first_request():
