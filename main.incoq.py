@@ -70,15 +70,21 @@ app.route('/index', methods=['POST', 'GET'])(index2)
 
 
 
-# @app.route('/test')
-# def test():
-#     response = make_response('web')
-#     response.set_cookie('test_cookie_key','test_cookie_value')
-#     projects = Project.query.order_by(desc(Project.score)).all()
-#     pw = ProjectWrapper(projects)
-#
-#     return render_template('index.html', projects=pw.languages)
-# app.route('/test')(test)
+@app.route('/test')
+def test():
+    response = make_response('web')
+    projects = Project.query.order_by(desc(Project.score)).all()
+
+    projects_python = Set()
+    projects_github = Set()
+    for p in projects:
+        if ('python' in map(strip, p.language.lower().split(','))):
+            projects_python.add(p)
+        if ('github' in p.home_page):
+            projects_github.add(p)
+    print({p1.developer for p1 in projects_python if (p1 in projects_github)})
+    return render('index.html', p_by_language)
+app.route('/test')(test)
 
 # @app.route('/user/<name>')
 # def user(name = 'world'):
