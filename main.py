@@ -24,7 +24,9 @@ Bootstrap(app)
 manager = Manager(app)
 
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://'+db_username+':'+db_password+'.@localhost/dist'
+connStr = 'mysql+pymysql://'+db_username+':'+db_password+'.@localhost/dist'
+print connStr
+app.config['SQLALCHEMY_DATABASE_URI'] = connStr
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 
