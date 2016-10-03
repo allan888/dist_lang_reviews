@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+import ConfigParser
 import json
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask import Flask, render_template, request
@@ -11,17 +13,18 @@ import sys
 import inspect
 from sqlalchemy import desc
 
-
-
-
-
+configParser = ConfigParser.RawConfigParser()
+configFilePath = r'dbconfig.ini'
+configParser.read(configFilePath)
+db_username = configParser.get('dbconfig', 'username')
+db_password = configParser.get('dbconfig', 'password')
 
 app = Flask(__name__)
 Bootstrap(app)
 manager = Manager(app)
 
 db = SQLAlchemy(app)
-app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://webadmin:webadmin123.@s2.zhujieao.com/dist'
+app.config['SQLALCHEMY_DATABASE_URI'] ='mysql+pymysql://db_username:db_password.@localhost/dist'
 app.config['SQLALCHEMY_COMMIT_ON_TEARDOWN'] = True
 
 
